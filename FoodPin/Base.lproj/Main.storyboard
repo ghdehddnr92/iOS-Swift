@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="1sX-tH-f8Z">
-                                                    <rect key="frame" x="75" y="0.0" width="278" height="58.5"/>
+                                                    <rect key="frame" x="75" y="0.0" width="213" height="58.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoV-0O-vTW">
                                                             <rect key="frame" x="0.0" y="0.0" width="47" height="20.5"/>
@@ -61,6 +61,9 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fJ8-gE-g39">
+                                                    <rect key="frame" x="303" y="0.0" width="50" height="50"/>
+                                                </imageView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -71,6 +74,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkImage" destination="fJ8-gE-g39" id="FLs-as-Vtv"/>
                                     <outlet property="locationLabel" destination="PHA-bZ-vaZ" id="rRc-sU-3zA"/>
                                     <outlet property="nameLabel" destination="NoV-0O-vTW" id="MII-Bl-Kz8"/>
                                     <outlet property="thumbnailImageView" destination="yCS-HN-97r" id="EEO-Bt-c83"/>

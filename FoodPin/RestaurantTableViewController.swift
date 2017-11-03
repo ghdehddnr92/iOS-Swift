@@ -54,10 +54,16 @@ class RestaurantTableViewController: UITableViewController{
         cell.locationLabel.text = restaurantLocations[indexPath.row]
         cell.typeLabel.text = restaurantTypes[indexPath.row]
         cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
+        if(restaurantIsVisited[indexPath.row] == true){
+            cell.checkImage.image = UIImage(named: "heart-tick");
+        }
+        else{
+            cell.checkImage.image = nil;
+        }
         
-        cell.accessoryType = restaurantIsVisited[indexPath.row] ? .checkmark : .none
+      //  cell.accessoryType = restaurantIsVisited[indexPath.row] ? .checkmark : .none
+    
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
@@ -70,27 +76,100 @@ class RestaurantTableViewController: UITableViewController{
         }
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         optionMenu.addAction(cancelAction)
+        
         let callActionHandler = { (action:UIAlertAction) -> Void in
             let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: .alert)
             alertMessage.addAction(UIAlertAction(title: "Ok", style: .default,handler: nil))
             self.present(alertMessage, animated: true, completion: nil)
         }
+        
         let callAction = UIAlertAction(title: "Call" + "123-000- \(indexPath.row)", style: .default, handler: callActionHandler)
         optionMenu.addAction(callAction)
         present(optionMenu, animated: true, completion: nil)
         
+        
         let checkInAction = UIAlertAction(title: "Check in", style: .default, handler:{
             (action:UIAlertAction) -> Void in
             
-            let cell = tableView.cellForRow(at: indexPath)
-            cell?.accessoryType = .checkmark
+//            let cell = tableView.cellForRow(at: indexPath)
+//            cell?.accessoryType = .none
+            
             self.restaurantIsVisited[indexPath.row] = true
         })
-        optionMenu.addAction(checkInAction)
+        
+        let unCheckInAction = UIAlertAction(title: "Undo Check in", style: .default, handler:{ (action:UIAlertAction) -> Void in
+            
+//            let cell = tableView.cellForRow(at: indexPath)
+//            cell?.accessoryType = .none
+
+            self.restaurantIsVisited[indexPath.row] = false
+            
+        })
+       
+        if self.restaurantIsVisited[indexPath.row] == false{
+            optionMenu.addAction(checkInAction)
+        }
+        else{
+            optionMenu.addAction(unCheckInAction)
+        }
+         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: false)
     }
 
-
+    // Override to support editing the table view.
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//
+//            restaurantNames.remove(at: indexPath.row)
+//            restaurantLocations.remove(at: indexPath.row)
+//            restaurantTypes.remove(at: indexPath.row)
+//            restaurantIsVisited.remove(at: indexPath.row)
+//            restaurantImages.remove(at: indexPath.row)
+//
+//            //tableView.reloadData()
+//           tableView.deleteRows(at: [indexPath], with: .fade)
+//       //     tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//        print("Total item: \(restaurantNames.count)")
+//        for name in restaurantNames {
+//            print(name) }
+////        else if editingStyle == .insert {
+////            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+////        }
+//    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+            // Delete the row from the data source
+                self.restaurantNames.remove(at: indexPath.row)
+                self.restaurantLocations.remove(at: indexPath.row)
+                self.restaurantTypes.remove(at: indexPath.row)
+                self.restaurantIsVisited.remove(at: indexPath.row)
+                self.restaurantImages.remove(at: indexPath.row)
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+             completionHandler(true)
+        }
+        let shareAction = UIContextualAction(style: .normal, title: "Share") {
+            (action, sourceView, completionHandler) in
+            let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
+            let activityController: UIActivityViewController
+            
+            if let imageToShare = UIImage(named: self.restaurantImages[indexPath.row]) {
+                activityController = UIActivityViewController(activityItems: [defaultText, imageToShare],
+                                                              applicationActivities: nil) }
+            else {
+                 activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities:nil)
+            }
+            self.present(activityController, animated: true, completion: nil)
+            completionHandler(true)
+        }
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+        return swipeConfiguration
+    }
+    // Call completion handler to dismiss the action button completionHandler(true)
+   
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -109,17 +188,8 @@ class RestaurantTableViewController: UITableViewController{
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+
+
 
     /*
     // Override to support rearranging the table view.
