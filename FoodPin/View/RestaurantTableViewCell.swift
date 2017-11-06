@@ -18,7 +18,7 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var typeLabel: UILabel!
-    @IBOutlet var checkImage: UIImageView!
+    @IBOutlet var heartImageView: UIImageView!
     
     @IBOutlet var thumbnailImageView: UIImageView!{
         didSet{
