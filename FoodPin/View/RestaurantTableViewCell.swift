@@ -1,30 +1,21 @@
-//
-//  RestaurantTableViewCell.swift
-//  FoodPin
-//
-//  Created by dong wook on 2017. 10. 26..
-//  Copyright © 2017년 SSU. All rights reserved.
-//
-
 import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var typeLabel: UILabel!
-    @IBOutlet var heartImageView: UIImageView!
-    
-    @IBOutlet var thumbnailImageView: UIImageView!{
-        didSet{
+    @IBOutlet var thumbnailImageView: UIImageView! {
+        didSet {
             thumbnailImageView.layer.cornerRadius = thumbnailImageView.bounds.width / 2
             thumbnailImageView.clipsToBounds = true
         }
+    }
+    @IBOutlet var heartImageView: UIImageView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,3 +25,5 @@ class RestaurantTableViewCell: UITableViewCell {
     }
 
 }
+
+

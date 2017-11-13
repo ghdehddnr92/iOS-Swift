@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  FoodPin
-//
-//  Created by dong wook on 2017. 10. 23..
-//  Copyright © 2017년 SSU. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
